@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "844438369220",
+    "project_id": "bismark-bikes",
+    "storage_bucket": "bismark-bikes.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:844438369220:android:693b89a959a1fb7d37ea91",
+        "android_client_info": {
+          "package_name": "com.example.login_tutorial"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCghTmGOfdAfNMHA8HY1MTMjY0AHxltW6U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
