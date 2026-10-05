@@ -6,6 +6,16 @@ final userLocalDataSourceProvider = Provider<UserLocalDataSource>((ref) {
 });
 
 class UserLocalDataSource {
+
+  static String create = 
+  'CREATE TABLE users('
+  'id TEXT PRIMARY KEY, '
+  'nombre TEXT, '
+  'apellido TEXT, '
+  'correo TEXT, '
+  'contrasenia TEXT'
+  ')';
+
   Future<User?> validateUser() async {
     return null;
   }
