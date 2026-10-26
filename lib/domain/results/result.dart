@@ -1,13 +1,18 @@
-sealed class Result<S, F> {}
+sealed class Result<T> {
+  const Result();
 
-class Success<S, F> extends Result<S, F> {
-  final S data;
+  factory Result.success(T data) = Success<T>;
+  factory Result.failure(Exception error) = Failure<T>;
+}
+
+class Success<T> extends Result<T> {
+  final T data;
 
   Success(this.data);
 }
 
-class Failure<S, F> extends Result<S, F> {
-  final F error;
+class Failure<T> extends Result<T> {
+  final Exception error;
 
   Failure(this.error);
 }
