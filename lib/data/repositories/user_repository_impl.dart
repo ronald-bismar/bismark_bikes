@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart' show FirebaseAuthException;
 import 'package:login_tutorial/data/datasources/user/userlocaldatasource.dart';
 import 'package:login_tutorial/data/datasources/user/userremotedatasource.dart';
 import 'package:login_tutorial/domain/entities/user.dart';
@@ -22,7 +23,7 @@ class UserRepositoryImpl implements UserRepository {
         return Result.success(localUser);
       }
 
-      final remoteUser = await remoteDataSource.validateUser();
+      final remoteUser = await remoteDataSource.validateUser(email, password);
 
       if (remoteUser == null) {
         return Result.failure(
@@ -33,6 +34,19 @@ class UserRepositoryImpl implements UserRepository {
     } on DatabaseException {
       return Result.failure(
           StorageException(message: 'Error en la base de datos'));
+    } on FirebaseAuthException catch (error) {
+      return switch (error.code) {
+        'invalid-credential' ||
+        'wrong-password' ||
+        'user-not-found' =>
+          Result<User>.failure(
+              InvalidCredentialsException(message: 'Credenciales invalidas')),
+        'invalid-email' => Result<User>.failure(
+            InvalidCredentialsException(message: 'El email no es valido')),
+        'network-request-failed' => Result<User>.failure(InvalidCredentialsException(
+            message: 'No se pudo conectar para la autenticación')),
+        _ => Result<User>.failure(Exception(error.code))
+      };
     } catch (e) {
       return Result.failure(Exception(e));
     }
